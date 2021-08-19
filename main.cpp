@@ -6,12 +6,14 @@ int main(){
     std::vector<std::vector<int>> board(
         3, std::vector<int>(3, 0)
     );
-    bool p1Turn = true;
+    bool p2Turn = false;
     bool gameOver = false;
+    int winner = 1;
     int x;
     int y;
     const int p1 = 1;
     const int p2 = 2;
+
 
     while(!gameOver){
         std::cout << "What row would you like?" << std::endl;
@@ -25,11 +27,11 @@ int main(){
             break;
         }
         if(board[x][y] == 0){
-            if(p1Turn)
+            if(!p2Turn)
                 board[x][y] = p1;
             else
                 board[x][y] = p2;
-            p1Turn = !p1Turn;
+            p2Turn = !p2Turn;
             for(auto row: board){
                 std::cout << "   ";
                 for(int i: row){
@@ -43,8 +45,28 @@ int main(){
         std::cout << "value at board[x][y] is " << board[x][y] << std::endl;
 
         //check func
-    }
+        for(int row = 0; row < board.size(); row++){
+            if(board[row][0] != 0 && board[row][0] == board[row][1] && board[row][1] == board[row][2]){
+                gameOver = true;
+                winner += !p2Turn;
+            }
+            else if(board[0][row] != 0 && board[0][row] == board[1][row] && board[1][row] == board[2][row]){
+                gameOver = true;
+                winner += !p2Turn;
+            }
 
+        }
+        if(board[0][0] != 0 && board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+            gameOver = true;
+            winner += !p2Turn;
+        }
+        else if(board[0][2] != 0 && board[0][2] == board[1][1] && board[1][1] == board[2][0]){
+            gameOver = true;
+            winner += !p2Turn;
+        }
+        
+    }
+    std::cout << "Congratulations player " << winner << std::endl;
     /*
     
     std::cout << "Hello World!" << std::endl;
