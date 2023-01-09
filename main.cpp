@@ -1,4 +1,4 @@
-#include "TicTacToe.hpp"
+#include "ticTacToe.hpp"
 #include <iostream>
 #include <string>
 int main(){
@@ -8,17 +8,18 @@ int main(){
         newGame = "";
         TicTacToe* game =  new TicTacToe();
         game->run();
-        delete game;
         while(newGame != "Yes" && newGame != "No")
         {
             std::cout << "New Game? (Yes/No)" <<std::endl;
             std::cin >> newGame;
         }
-        if(newGame == "No")
+        std::cin.ignore(256, '\n'); //clear \n before next std::cin if rematch
+        if(newGame == "No")         //should be max limit if worried about overflow
             is_running = false;
+        delete game;
     }
-    std::cout << "Goodbye...\n\n\n";
-    system("pause");
+    std::cout << "Goodbye...Press any key to close.";
+    std::cin.get();
     return 0;
 
   

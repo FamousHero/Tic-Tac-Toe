@@ -1,4 +1,4 @@
-#include "TicTacToe.hpp"
+#include "ticTacToe.hpp"
 
 TicTacToe::TicTacToe()
     :board{3,std::vector<int>(3,0)}
@@ -110,12 +110,12 @@ int TicTacToe::isOver(const std::vector<std::vector<int>>& finalBoard){
 void TicTacToe::bestMove(int ai) {
     int human = ai == p1 ? p2 : p1;
     std::pair<int,int> bestCoord;
-    int bestScore = INT_MIN;
+    int bestScore = INT32_MIN;
     for (int i = 0; i < board.size(); ++i) {
         for (int j = 0; j < board[i].size(); ++j) {
             if (board[i][j] == 0) {
                 board[i][j] = ai;
-                int score = miniMax(board, 0, INT_MIN, INT_MAX, false, human, ai);
+                int score = miniMax(board, 0, INT32_MIN, INT32_MAX, false, human, ai);
                 board[i][j] = 0;
                 if (score > bestScore) {
                     bestScore = score;
@@ -141,7 +141,7 @@ int TicTacToe::miniMax(std::vector<std::vector<int>> boardcpy, int depth, int al
             return 10 - depth;
     
     if (maxplayer) {
-        int bestScore = INT_MIN;
+        int bestScore = INT32_MIN;
         for (int i = 0; i < board.size(); ++i) {    
             for (int j = 0; j < board[i].size(); ++j) {
                 if (boardcpy[i][j] == 0) {
@@ -158,7 +158,7 @@ int TicTacToe::miniMax(std::vector<std::vector<int>> boardcpy, int depth, int al
         return bestScore;
     }
     if (!maxplayer) {
-        int bestScore = INT_MAX;
+        int bestScore = INT32_MAX;
         for (int i = 0; i < board.size(); ++i) {
             for (int j = 0; j < board[i].size(); ++j) {
                 if (boardcpy[i][j] == 0) {
